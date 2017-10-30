@@ -9,9 +9,9 @@ export default StyleSheet.create({
     marginRight: 10,
     alignItems: 'center'
   },
-  image: {
-    width: scale(38),
-    height: verticalScale(33),
+  flagIcon: {
+    width: scale(42),
+    height: verticalScale(32),
     borderColor: 'black',
     borderWidth: 1,
   },
@@ -20,5 +20,11 @@ export default StyleSheet.create({
     width: scale(32),
     height: verticalScale(30),
     marginHorizontal: 5
+  },
+  flagImage: {
+    width: scale(85),
+    height: verticalScale(55),
+    borderColor: 'black',
+    borderWidth: 1
   }
 });

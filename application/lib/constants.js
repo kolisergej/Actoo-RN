@@ -53,6 +53,7 @@ export const defaultLanguageDirections = [
   'fi-ru',
   'fr-en',
   'fr-ru',
+  'hu-ru',
   'it-en',
   'it-ru',
   'lt-en',
@@ -77,6 +78,7 @@ export const defaultLanguageDirections = [
   'ru-et',
   'ru-fi',
   'ru-fr',
+  'ru-hu',
   'ru-it',
   'ru-lt',
   'ru-lv',
@@ -87,7 +89,6 @@ export const defaultLanguageDirections = [
   'ru-sk',
   'ru-sv',
   'ru-tr',
-  'ru-tt',
   'ru-uk',
   'sk-en',
   'sk-ru',
@@ -96,7 +97,6 @@ export const defaultLanguageDirections = [
   'tr-de',
   'tr-en',
   'tr-ru',
-  'tt-ru',
   'uk-en',
   'uk-ru'
 ];
