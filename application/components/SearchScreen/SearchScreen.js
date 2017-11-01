@@ -10,13 +10,6 @@ import { convertLanguageDirections } from '../../lib/helpers';
 
 
 export default class SearchScreen extends Component {
-  constructor() {
-    super();
-    this.state = {
-      supportedLanguages: []
-    };
-  }
-
   extractSupportedLanguages = () => {
     return new Promise((resolve, reject) => {
       fetch(supportedLanguagesUrl).then(response => {
@@ -52,9 +45,7 @@ export default class SearchScreen extends Component {
           languageSettings[0].directions = directions;
         });
       }
-      this.setState({ supportedLanguages: directions });
-      const { fromLng, toLng } = languageSettings[0];
-      this.props.navigation.setParams({ fromLng, toLng });
+      // redux set languageDirections
     }).catch(err => {
       if (!languageSettings.length) {
         // First application start (Internet off)
@@ -62,13 +53,8 @@ export default class SearchScreen extends Component {
         db.write(() => {
           db.create('LanguageSettings', { directions });
         });
-        this.setState({ supportedLanguages: directions });
-      } else {
-        // else not first application start (Internet off)
-        this.setState({ supportedLanguages: languageSettings[0].directions });
-      }
-      const { fromLng, toLng } = languageSettings[0];
-      this.props.navigation.setParams({ fromLng, toLng });
+        // redux set languageDirections
+      } // else not first application start (Internet off)
     });
   }
 
