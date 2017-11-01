@@ -32,10 +32,6 @@ const LanguageSettingsSchema = {
     directions: {
       type: 'list',
       objectType: 'Direction'
-    },
-    direction: {
-      type: 'string',
-      default: ''
     }
   },
 };
