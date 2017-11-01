@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, TouchableHighlight, Image, Text, View } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 
 import styles from './styles';
 
@@ -14,13 +15,15 @@ export default class FlagsScreen extends Component {
   }
 
   renderItem = ({ item }) => {
-    const { direction, fromLng, toLng } = this.props.navigation.state.params;
+    const { direction, fromLng, toLng, onBack } = this.props.navigation.state.params;
     return <TouchableHighlight
       onPress={() => {
         if (direction === 'from') {
           this.props.navigation.goBack();
+          onBack(item, toLng, direction);
         } else {
           this.props.navigation.goBack();
+          onBack(fromLng, item, direction);
         }
       }}
     >

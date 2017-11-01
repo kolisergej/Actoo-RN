@@ -7,16 +7,15 @@ import styles from './styles';
 
 
 SearchScreen.navigationOptions = ({ navigation }) => {
-
   if (navigation.state.params) {
     let { fromLng, toLng, direction } = navigation.state.params;
     const languageSettings = db.objects('LanguageSettings')[0];
 
     if (direction === 'from') {
-      const direction = languageSettings.directions.find(item => item.from === fromLng);
-      const toValue = direction.to.find(item => item.value === toLng);
+      const fromDirection = languageSettings.directions.find(item => item.from === fromLng);
+      const toValue = fromDirection.to.find(item => item.value === toLng);
       if (!toValue) {
-        toLng = direction.to[0].value;
+        toLng = fromDirection.to[0].value;
       }
     }
 
@@ -24,16 +23,24 @@ SearchScreen.navigationOptions = ({ navigation }) => {
       languageSettings.fromLng = fromLng;
       languageSettings.toLng = toLng;
     });
+
+    onBack = (fromLng, toLng, direction) => {
+      // hack
+      setTimeout(() => {
+        navigation.setParams({ fromLng, toLng, direction });
+      }, 10);
+    };
+
     const headerRight = <View style={styles.headerRight}>
       <TouchableHighlight
         onPress={() => {
-          let fromFlags = [];
+          let flags = [];
           for (const direction of languageSettings.directions) {
             if ([fromLng, toLng, 'tt', 'mhr', 'mrj'].indexOf(direction.from) === -1) {
-              fromFlags.push(direction.from);
+              flags.push(direction.from);
             }
           }
-          navigation.navigate('Flags', { flags: fromFlags, fromLng, toLng, direction: 'from' });
+          navigation.navigate('Flags', { flags, fromLng, toLng, direction: 'from', onBack });
         }}
         underlayColor="#f2f2f2"
       >
@@ -54,18 +61,18 @@ SearchScreen.navigationOptions = ({ navigation }) => {
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
-          let toFlags = [];
+          let flags = [];
           for (const direction of languageSettings.directions) {
             if (direction.from === fromLng) {
               for (const toObj of direction.to) {
                 if ([fromLng, toLng, 'tt', 'mhr', 'mrj'].indexOf(toObj.value) === -1) {
-                  toFlags.push(toObj.value);
+                  flags.push(toObj.value);
                 }
               }
               break;
             }
           }
-          navigation.navigate('Flags', { flags: toFlags, direction: 'to', fromLng, toLng });
+          navigation.navigate('Flags', { flags, fromLng, toLng, direction: 'to', onBack });
         }}
         underlayColor="#f2f2f2"
       >
