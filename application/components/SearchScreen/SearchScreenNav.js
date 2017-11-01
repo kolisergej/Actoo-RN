@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableHighlight, Image, View } from 'react-native';
+import { TouchableHighlight, Image, View, Platform } from 'react-native';
 
 import SearchScreen from './SearchScreen';
 import db from '../../database';
@@ -12,11 +12,14 @@ SearchScreen.navigationOptions = ({ navigation }) => {
     const languageSettings = db.objects('LanguageSettings')[0];
 
     if (direction === 'from') {
-      const fromDirection = languageSettings.directions.find(item => item.from === fromLng);
-      const toValue = fromDirection.to.find(item => item.value === toLng);
-      if (!toValue) {
-        toLng = fromDirection.to[0].value;
-      }
+      languageSettings.directions.forEach(direction => {
+        if (direction.from === fromLng) {
+          const toValue = fromDirection.to.find(item => item.value === toLng);
+          if (!toValue) {
+            toLng = fromDirection.to[0].value;
+          }
+        }
+      });
     }
 
     db.write(() => {
@@ -35,16 +38,22 @@ SearchScreen.navigationOptions = ({ navigation }) => {
       <TouchableHighlight
         onPress={() => {
           let flags = [];
-          for (const direction of languageSettings.directions) {
+          languageSettings.directions.forEach(direction => {
             if ([fromLng, toLng, 'tt', 'mhr', 'mrj'].indexOf(direction.from) === -1) {
               flags.push(direction.from);
             }
-          }
+          });
           navigation.navigate('Flags', { flags, fromLng, toLng, direction: 'from', onBack });
         }}
         underlayColor="#f2f2f2"
       >
-        <Image resizeMode='stretch' source={{uri: fromLng}} style={styles.flagIcon} />
+        <View>
+        {
+          Platform.OS === 'ios' ?
+            <Image resizeMode='stretch' source={{uri: fromLng}} style={styles.flagIcon} /> :
+            <Image resizeMode='stretch' source={{uri: `asset:/${fromLng}.png`}} style={styles.flagIcon} />
+        }
+        </View>
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
@@ -62,21 +71,26 @@ SearchScreen.navigationOptions = ({ navigation }) => {
       <TouchableHighlight
         onPress={() => {
           let flags = [];
-          for (const direction of languageSettings.directions) {
+          languageSettings.directions.forEach(direction => {
             if (direction.from === fromLng) {
-              for (const toObj of direction.to) {
+              direction.to.forEach(toObj => {
                 if ([fromLng, toLng, 'tt', 'mhr', 'mrj'].indexOf(toObj.value) === -1) {
                   flags.push(toObj.value);
                 }
-              }
-              break;
+              });
             }
-          }
+          });
           navigation.navigate('Flags', { flags, fromLng, toLng, direction: 'to', onBack });
         }}
         underlayColor="#f2f2f2"
       >
-        <Image source={{uri: toLng}} style={styles.flagIcon} />
+        <View>
+          {
+            Platform.OS === 'ios' ?
+              <Image resizeMode='stretch' source={{uri: toLng}} style={styles.flagIcon} /> :
+              <Image resizeMode='stretch' source={{uri: `asset:/${toLng}.png`}} style={styles.flagIcon} />
+          }
+        </View>
       </TouchableHighlight>
     </View>;
 

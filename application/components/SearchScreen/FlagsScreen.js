@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, TouchableHighlight, Image, Text, View } from 'react-native';
+import { FlatList, TouchableHighlight, Image, Text, View, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import styles from './styles';
@@ -28,7 +28,11 @@ export default class FlagsScreen extends Component {
       }}
     >
       <View>
-        <Image resizeMode='stretch' source={{uri: item}} style={styles.flagImage} />
+        {
+          Platform.OS === 'ios' ?
+            <Image resizeMode='stretch' source={{uri: item}} style={styles.flagImage} /> :
+            <Image resizeMode='stretch' source={{uri: `asset:/${item}.png`}} style={styles.flagImage} />
+        }
         <Text>{item}</Text>
       </View>
     </TouchableHighlight>;
