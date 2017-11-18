@@ -1,6 +1,30 @@
 import { Dimensions } from 'react-native';
-const { width, height } = Dimensions.get('window');
 
+import * as constants from './constants';
+
+
+function msp(dim, limit) {
+    return (dim.scale * dim.width) >= limit || (dim.scale * dim.height) >= limit;
+}
+
+function isPortrait() {
+  const dim = Dimensions.get('screen');
+  return dim.height >= dim.width;
+}
+
+function isLandscape() {
+  const dim = Dimensions.get('screen');
+  return dim.width >= dim.height;
+}
+
+function isTablet() {
+    const dim = Dimensions.get('screen');
+    return ((dim.scale < 2 && msp(dim, 1000)) || (dim.scale >= 2 && msp(dim, 1900)));
+}
+
+function isPhone(){
+  return !isTablet();
+}
 
 function convertLanguageDirections(directionsArray) {
   const tmpObj = Object.create(null);
@@ -24,12 +48,25 @@ function convertLanguageDirections(directionsArray) {
   return directions;
 }
 
-//Guideline sizes are based on standard ~5" screen mobile device
-const guidelineBaseWidth = 350;
-const guidelineBaseHeight = 680;
+function getToken() {
+  let index = 0;
+  return () => {
+    index += 1;
+    return constants.tokens[index % constants.tokens.length];
+  };
+}
+const token = getToken();
 
-const scale = size => width / guidelineBaseWidth * size;
-const verticalScale = size => height / guidelineBaseHeight * size;
-const moderateScale = (size, factor = 0.5) => size + ( scale(size) - size ) * factor;
+function translate(fromLng, toLng, word) {
+  const uri = `${constants.translateUrl}${token()}&lang=${fromLng}-${toLng}&text=${encodeURIComponent(word)}`;
+  return fetch(uri);
+}
 
-export {scale, verticalScale, moderateScale, convertLanguageDirections};
+export {
+  isPortrait,
+  isLandscape,
+  isTablet,
+  isPhone,
+  convertLanguageDirections,
+  translate
+};

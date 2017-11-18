@@ -4,7 +4,8 @@ import FlagsScreen from './FlagsScreen';
 
 FlagsScreen.navigationOptions = ({ navigation }) => {
   return {
-    title: 'Choose language'
+    title: 'Choose language',
+    tabBarVisible: false
   }
 }
 

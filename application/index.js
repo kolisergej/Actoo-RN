@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TabNavigator } from 'react-navigation';
 
 import SearchScreen from './components/SearchScreen';
+import TrainingScreen from './components/TrainingScreen';
 
 
 SearchScreen.navigationOptions = (props) => {
@@ -10,11 +11,20 @@ SearchScreen.navigationOptions = (props) => {
   };
 };
 
+TrainingScreen.navigationOptions = (props) => {
+  return {
+    title: 'Training'
+  };
+}
+
 export default TabNavigator({
   Search: {
     screen: SearchScreen
   },
-  // Reminder: {
-  //   screen: ReminderScreen
+  Training: {
+    screen: TrainingScreen
+  },
+  // Dictionary: {
+  //   screen: DictionaryScreen
   // }
 });

@@ -1,15 +1,35 @@
 import React, { Component } from 'react';
 import {
   Text,
+  TextInput,
   View
 } from 'react-native';
 
 import db from '../../database';
 import { supportedLanguagesUrl, defaultLanguageDirections } from '../../lib/constants';
-import { convertLanguageDirections } from '../../lib/helpers';
+import { convertLanguageDirections, translate } from '../../lib/helpers';
+import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
+import Loader from './Loader';
+import MessageBox from './MessageBox';
+import ResultBox from '../../lib/ResultBox';
+import * as constants from '../../lib/constants';
+
+import styles from './styles';
 
 
 export default class SearchScreen extends Component {
+  constructor() {
+    super();
+    this.state = {
+      textForTranslate: '',
+      showLoader: true,
+      messageBox: {
+        show: false
+      },
+      currentResult: null,
+    };
+  }
+
   extractSupportedLanguages = () => {
     return new Promise((resolve, reject) => {
       fetch(supportedLanguagesUrl).then(response => {
@@ -22,10 +42,15 @@ export default class SearchScreen extends Component {
         reject(new Error('Slow connection'));
       }, 1000);
     });
-
   }
 
   componentDidMount() {
+    onPromiseFinished = (languageSettings) => {
+      const { fromLng, toLng } = languageSettings[0];
+      this.props.navigation.setParams({ fromLng, toLng });
+      this.setState({ showLoader: false });
+    }
+
     const languageSettings = db.objects('LanguageSettings');
     this.extractSupportedLanguages().then(response => {
       if (response.ok) {
@@ -45,8 +70,7 @@ export default class SearchScreen extends Component {
           languageSettings[0].directions = directions;
         });
       }
-      const { fromLng, toLng } = languageSettings[0];
-      this.props.navigation.setParams({ fromLng, toLng });
+      onPromiseFinished(languageSettings);
     }).catch(err => {
       if (!languageSettings.length) {
         // First application start (Internet off)
@@ -55,15 +79,138 @@ export default class SearchScreen extends Component {
           db.create('LanguageSettings', { directions });
         });
       } // else not first application start (Internet off)
-      const { fromLng, toLng } = languageSettings[0];
-      this.props.navigation.setParams({ fromLng, toLng });
+      onPromiseFinished(languageSettings);
     });
   }
 
+  _onChangeText = (text) => {
+    this.setState({ textForTranslate: text })
+  }
+
+  upWordRate = (word) => {
+    db.write(() => {
+      word.rating += 1;
+    });
+    this.setState({ currentResult: word });
+  }
+
+  _onSubmitEditing = async () => {
+    if (!this.state.textForTranslate) {
+      this.setState({
+        messageBox: {
+          show: true,
+          title: constants.yandexHeaderService,
+          message: constants.typeAnyWord
+        }
+      });
+      return;
+    }
+    const { fromLng, toLng } = this.props.navigation.state.params;
+    const id = fromLng + this.state.textForTranslate + toLng;
+    let word = db.objects('Word').filtered(`id == "${id}"`);
+    if (word.length) {
+      this.upWordRate(word[0]);
+    } else {
+      this.setState({
+        messageBox: {
+          show: true,
+          translating: true,
+          title: constants.yandexHeaderService
+        },
+        currentResult: null
+      });
+      translate(fromLng, toLng, this.state.textForTranslate)
+        .then(response => response.json())
+        .then(json => {
+          this.setState({
+            messageBox: {
+              show: false
+            }
+          });
+          if (json.def.length) {
+            const yandexResponse = json.def[0].tr[0];
+            const examplesAnswer = yandexResponse.ex;
+            let examples = [];
+            if (examplesAnswer) {
+              db.write(() => {
+                examples = examplesAnswer.map(example => db.create('Example', { exampleOrig: example.text, exampleTr: example.tr[0].text }));
+              });
+            }
+            let synonyms = '';
+            if (yandexResponse.syn) {
+              synonyms = yandexResponse.syn.map(synonym => synonym.text).join(', ');
+            }
+            db.write(() => {
+              word = db.create('Word', {
+                id,
+                fromLng,
+                toLng,
+                origWord: this.state.textForTranslate,
+                translate: yandexResponse.text,
+                synonyms,
+                examples,
+              });
+            });
+            this.upWordRate(word);
+          } else {
+            setTimeout(() => {
+              this.setState({
+                messageBox: {
+                  show: true,
+                  title: constants.yandexHeaderService,
+                  message: constants.unknownWord,
+                  translating: false
+                }
+              });
+            }, 1000);
+          }
+        })
+        .catch(er => {
+          this.setState({
+            messageBox: {
+              show: true,
+              translating: false,
+              title: constants.connectionError,
+              message: constants.checkInternetConnection
+            }
+          });
+        })
+    }
+  }
+
   render() {
-    return (<View>
-        <Text>SearchScreen</Text>
+    let messageBox = null;
+    const messageBoxState = this.state.messageBox;
+    if (messageBoxState.show) {
+      messageBox = <MessageBox
+        title={messageBoxState.title}
+        message={messageBoxState.message}
+        translating={messageBoxState.translating}
+        onButtonPressed={() => {
+          this.setState({ messageBox: { show: false } });
+        }}
+      />;
+    }
+    return (<View style={styles.searchScreenContainer}>
+      <View style={styles.searchScreenAlign} />
+      <View style={styles.searchArea}>
+        { this.state.showLoader && <Loader /> }
+        { messageBox }
+        <TextInput
+          style={styles.translateTextContainer}
+          placeholder='Type to translate...'
+          maxLength={30}
+          autoFocus
+          autoCapitalize='none'
+          returnKeyLabel='google'
+          onChangeText={this._onChangeText}
+          value={this.state.textForTranslate}
+          onSubmitEditing={this._onSubmitEditing}
+        />
+        { this.state.currentResult && <ResultBox result={this.state.currentResult} /> }
       </View>
+      <YandexNoticeComponent />
+    </View>
     );
   }
 }
