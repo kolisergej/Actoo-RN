@@ -14,11 +14,11 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginHorizontal: '5%',
-    marginVertical: 20
+    marginVertical: 20,
   },
   sectionList: {
     width: '100%',
+    paddingRight: 10
   },
   translationItemView: {
     marginBottom: 20,

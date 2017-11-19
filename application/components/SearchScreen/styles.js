@@ -33,14 +33,13 @@ export default StyleSheet.create({
     flex: 5
   },
   flatListContainer: {
-    flex: 90,
+    flex: 90
   },
   translateTextContainer: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5,
-    marginHorizontal: '5%',
     textAlign: 'center'
   },
   flatListContent: {
@@ -59,7 +58,8 @@ export default StyleSheet.create({
     flex: 10
   },
   searchArea: {
-    flex: 85
+    flex: 85,
+    marginHorizontal: '10%'
   },
   modalContainer: {
     flex: 1,

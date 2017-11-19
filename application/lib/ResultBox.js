@@ -8,15 +8,12 @@ import {
 import styles from './styles';
 
 const TranslationItem = ({ item }) =>
-  <View style={[styles.translationItemView, styles.adjustScrollView]}>
+  <View style={styles.translationItemView}>
     <Text style={styles.resultText}>{item.translate}; {item.synonyms}</Text>
   </View>;
 
 const ExamplesItem = ({ item }) =>
-  <View style={styles.adjustScrollView}>
-    <Text style={styles.resultText}>{item.exampleOrig} - {item.exampleTr} </Text>
-  </View>;
-
+  <Text style={styles.resultText}>{item.exampleOrig} - {item.exampleTr} </Text>;
 
 const ResultBox = ({ result }) => {
   return <View style={styles.resultBoxStyle}>
@@ -34,7 +31,7 @@ const ResultBox = ({ result }) => {
           renderItem: ExamplesItem,
         }
       ]}
-      ItemSeparatorComponent={() => <View style={[styles.examplesHr, styles.adjustScrollView]} />}
+      ItemSeparatorComponent={() => <View style={styles.examplesHr} />}
     />
   </View>;
 }

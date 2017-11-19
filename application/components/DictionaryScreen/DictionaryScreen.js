@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import {
+  Platform,
+  Image,
+  FlatList,
+  Text,
+  View
+} from 'react-native';
 
 import styles from './styles';
 import db from '../../database';
+import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 import EmptyDictionary from '../../lib/EmptyDictionary';
 
 
@@ -22,8 +29,42 @@ class DictionaryScreen extends Component {
     });
   }
 
+  keyExtractor = (item) => {
+    return item.id;
+  }
+
+  renderItem = ({ item }) => {
+    return <View style={styles.dictionaryRow}>
+      <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
+      { Platform.OS === 'ios' ?
+        <View style={styles.flagsArea}>
+          <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
+          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+          <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
+        </View> :
+        <View style={styles.flagsArea}>
+          <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
+          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+          <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
+        </View>
+      }
+    </View>
+  }
+
   render() {
-    return this.state.words.length ? <View>
+    return this.state.words.length ? <View style={styles.dictionaryScreenContainer}>
+      <View style={styles.dictionaryAlign} />
+      <View style={styles.dictionaryInfo} >
+        <FlatList
+          contentContainerStyle={styles.dictionaryContent}
+          data={this.state.words}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+        />
+      </View>
+      <View style={styles.dictionaryAlign} />
+      <YandexNoticeComponent />
     </View> :
     <EmptyDictionary />;
   }
