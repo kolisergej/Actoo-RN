@@ -9,10 +9,10 @@ export default StyleSheet.create({
     flex: 1,
   },
   trainingScreenAlign: {
-    flex: 5
+    flex: 4
   },
   trainingMainArea: {
-    flex: 85,
+    flex: 87,
     width: '80%',
     marginHorizontal: '10%'
   },
@@ -39,14 +39,13 @@ export default StyleSheet.create({
   },
   origWord: {
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
     fontSize: 16
   },
   flagsArea: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 5
+    alignItems: 'center'
   },
   flagImage: {
     width: PixelRatio.getPixelSizeForLayoutSize(25),
