@@ -206,6 +206,7 @@ export default class SearchScreen extends Component {
           onChangeText={this._onChangeText}
           value={this.state.textForTranslate}
           onSubmitEditing={this._onSubmitEditing}
+          underlineColorAndroid='transparent'
         />
         { this.state.currentResult && <ResultBox result={this.state.currentResult} /> }
       </View>

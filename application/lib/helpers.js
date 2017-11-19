@@ -1,16 +1,9 @@
-import { Dimensions } from 'react-native';
+import {
+  Dimensions,
+  PixelRatio
+} from 'react-native';
 
 import * as constants from './constants';
-
-
-function msp(dim, limit) {
-    return (dim.scale * dim.width) >= limit || (dim.scale * dim.height) >= limit;
-}
-
-function isPortrait() {
-  const dim = Dimensions.get('screen');
-  return dim.height >= dim.width;
-}
 
 function isLandscape() {
   const dim = Dimensions.get('screen');
@@ -18,12 +11,14 @@ function isLandscape() {
 }
 
 function isTablet() {
-    const dim = Dimensions.get('screen');
-    return ((dim.scale < 2 && msp(dim, 1000)) || (dim.scale >= 2 && msp(dim, 1900)));
-}
-
-function isPhone(){
-  return !isTablet();
+  const pixelDensity = PixelRatio.get();
+  const { width, height } = Dimensions.get('window');
+  const adjustWidth = width * pixelDensity;
+  const adjustHeight = height * pixelDensity;
+  return (
+    (pixelDensity < 2 && (adjustWidth >= 1000 || adjustHeight >= 1000)) ||
+    (pixelDensity === 2 && (adjustWidth >= 1920 || adjustHeight >= 1920))
+  );
 }
 
 function convertLanguageDirections(directionsArray) {
@@ -63,10 +58,8 @@ function translate(fromLng, toLng, word) {
 }
 
 export {
-  isPortrait,
   isLandscape,
   isTablet,
-  isPhone,
   convertLanguageDirections,
   translate
 };

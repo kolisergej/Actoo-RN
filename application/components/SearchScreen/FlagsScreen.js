@@ -9,19 +9,19 @@ import { FlatList,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
-import { isPortrait, isLandscape, isTablet, isPhone } from '../../lib/helpers';
-
+import { isTablet, isLandscape } from '../../lib/helpers';
 import styles from './styles';
+
 
 function getNumColumns() {
   let numColumns = 3; // by default phone, portrait
-  if (isPhone() && isLandscape()) {
+  if (!isTablet() && isLandscape()) {
     numColumns = 4;
   } else if (isTablet()) {
-    if (isPortrait()) {
-      numColumns = 5;
-    } else if (isLandscape()) {
+    if (isLandscape()) {
       numColumns = 6;
+    } else {
+      numColumns = 5;
     }
   }
   return numColumns;

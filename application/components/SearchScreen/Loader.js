@@ -13,6 +13,7 @@ export default () =>
     animationType='fade'
     supportedOrientations={['portrait', 'landscape']}
     transparent
+    onRequestClose={() => {}}
   >
     <View style={styles.modalContainer}>
       <ActivityIndicator animating size='large' />

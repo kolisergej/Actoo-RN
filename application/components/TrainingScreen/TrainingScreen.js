@@ -20,7 +20,7 @@ export default class TrainingScreen extends Component {
     this.state = {
       currentWordIndex: 0,
       showResult: false,
-      words: []
+      words: this.setUpSessionWords()
     };
 
     db.objects('Word').addListener(() => {
@@ -93,7 +93,7 @@ export default class TrainingScreen extends Component {
                   <Image resizeMode='stretch' source={{uri: currentWord.toLng}} style={styles.flagImage} />
                 </View> :
                 <View style={styles.flagsArea}>
-                  <Image resizeMode='stretch' source={{uri: `asset:/${currentWord.frmLng}.png`}} style={styles.flagImage} />
+                  <Image resizeMode='stretch' source={{uri: `asset:/${currentWord.fromLng}.png`}} style={styles.flagImage} />
                   <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
                   <Image resizeMode='stretch' source={{uri: `asset:/${currentWord.toLng}.png`}} style={styles.flagImage} />
                 </View>
