@@ -10,6 +10,7 @@ import {
 import styles from './styles';
 import db from '../../database';
 import ResultBox from '../../lib/ResultBox';
+import EmptyDictionary from '../../lib/EmptyDictionary';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 
 const wordsSessionCount = 20;
@@ -22,9 +23,12 @@ export default class TrainingScreen extends Component {
       showResult: false,
       words: this.setUpSessionWords()
     };
+  }
 
-    db.objects('Word').addListener(() => {
-      if (db.objects('Word').length === 1) {
+  componentWillMount() {
+    const words = db.objects('Word');
+    words.addListener(() => {
+      if (words.length === 1) {
         this.setState({ words: this.setUpSessionWords() });
       }
     });
@@ -79,9 +83,9 @@ export default class TrainingScreen extends Component {
   render() {
     const { words, currentWordIndex } = this.state;
     const currentWord = words.length ? words[currentWordIndex] : null;
-    return <View style={styles.trainingContainer}>
-      <View style={styles.trainingScreenAlign} />
-      { currentWord ?
+    return currentWord ?
+      <View style={styles.trainingContainer}>
+        <View style={styles.trainingScreenAlign} />
         <View style={styles.trainingMainArea}>
           <View style={styles.infoArea}>
             <Text style={styles.origWord}>{currentWord.origWord}</Text>
@@ -128,11 +132,10 @@ export default class TrainingScreen extends Component {
               </TouchableHighlight>
             </View>
           }
-        </View> : <View style={styles.trainingMainArea}>
         </View>
-      }
-      <View style={styles.trainingScreenAlign} />
-      <YandexNoticeComponent />
-    </View>;
+        <View style={styles.trainingScreenAlign} />
+        <YandexNoticeComponent />
+      </View> :
+      <EmptyDictionary />
   }
 }

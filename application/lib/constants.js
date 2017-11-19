@@ -10,8 +10,7 @@ export const checkInternetConnection = 'Check Internet connection.';
 export const actooWillUseSavedData = 'Actoo will use save data';
 export const unknownWord = 'Unknown word';
 export const typeAnyWord = 'Type any word';
-export const emptyDictionaryMessage = 'No dictionary words.\nAdd them via translating.';
-export const emptyRemindMessage = 'No words for remind.\nAdd them via translating.';
+export const emptyTrainingMessage = 'No words for training.\n\nAdd them via search and translating.';
 export const yandexApiText = 'Powered by Yandex.Dictionary';
 
 export const defaultLanguageDirections = [

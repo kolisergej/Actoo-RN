@@ -37,5 +37,15 @@ export default StyleSheet.create({
   },
   resultText: {
     fontSize: 16
+  },
+  emptyDictionary: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  emptyTrainingMessage: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: -100
   }
 });
