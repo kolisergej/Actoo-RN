@@ -44,7 +44,7 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   flatListContent: {
-    marginHorizontal: PixelRatio.getPixelSizeForLayoutSize(10)
+    marginHorizontal: PixelRatio.getPixelSizeForLayoutSize(13)
   },
   flatListColumn: {
     justifyContent: 'space-between'
