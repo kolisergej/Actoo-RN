@@ -18,11 +18,7 @@ function getNumColumns() {
   if (!isTablet() && isLandscape()) {
     numColumns = 4;
   } else if (isTablet()) {
-    if (isLandscape()) {
-      numColumns = 6;
-    } else {
-      numColumns = 5;
-    }
+    numColumns = 5;
   }
   return numColumns;
 }

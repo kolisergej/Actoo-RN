@@ -47,8 +47,6 @@ export default StyleSheet.create({
     marginHorizontal: PixelRatio.getPixelSizeForLayoutSize(15)
   },
   flatListColumn: {
-    borderWidth: 1,
-    borderColor: 'black',
     justifyContent: 'space-between'
   },
   languageSign: {
@@ -70,7 +68,6 @@ export default StyleSheet.create({
     backgroundColor: 'gray',
     opacity: 0.85
   },
-
   messageBox: {
     marginTop: -30,
     width: '85%',
