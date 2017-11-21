@@ -27,8 +27,8 @@ export default class TrainingScreen extends Component {
 
   componentWillMount() {
     const words = db.objects('Word');
-    words.addListener(() => {
-      if (words.length === 1) {
+    words.addListener((words, changes) => {
+      if (changes.insertions.length || changes.deletions.length) {
         this.setState({ words: this.setUpSessionWords() });
       }
     });

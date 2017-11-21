@@ -91,7 +91,9 @@ export default class SearchScreen extends Component {
     db.write(() => {
       word.rating += 1;
     });
-    this.setState({ currentResult: word });
+    const examples = word.examples.map(example => Object.assign({}, example));
+    const plainWord = Object.assign({}, word, { examples });
+    this.setState({ currentResult: plainWord });
   }
 
   _onSubmitEditing = async () => {

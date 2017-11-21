@@ -19,7 +19,8 @@ export default StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 7
+    marginVertical: 7,
+    paddingRight: 10
   },
   flagsArea: {
     flexDirection: 'row',

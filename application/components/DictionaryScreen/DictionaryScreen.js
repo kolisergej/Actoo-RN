@@ -6,6 +6,7 @@ import {
   Text,
   View
 } from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 import styles from './styles';
 import db from '../../database';
@@ -34,21 +35,39 @@ class DictionaryScreen extends Component {
   }
 
   renderItem = ({ item }) => {
-    return <View style={styles.dictionaryRow}>
-      <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
-      { Platform.OS === 'ios' ?
-        <View style={styles.flagsArea}>
-          <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
-          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-          <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
-        </View> :
-        <View style={styles.flagsArea}>
-          <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
-          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-          <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
-        </View>
-      }
-    </View>
+    const swipeSettings = {
+      autoClose: true,
+      backgroundColor: 'transparent',
+      right: [
+        {
+          onPress: () => {
+            const deleteItem = db.objects('Word').filtered('id = $0', item.id);
+            db.write(() => {
+              db.delete(deleteItem);
+            })
+          },
+          text: 'Delete',
+          type: 'delete'
+        }
+      ]
+    };
+    return <Swipeout {...swipeSettings}>
+      <View style={styles.dictionaryRow}>
+        <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
+        { Platform.OS === 'ios' ?
+          <View style={styles.flagsArea}>
+            <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
+            <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+            <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
+          </View> :
+          <View style={styles.flagsArea}>
+            <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
+            <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+            <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
+          </View>
+        }
+      </View>
+    </Swipeout>
   }
 
   render() {
