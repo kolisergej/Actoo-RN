@@ -8,12 +8,12 @@ import {
 
 import styles from './styles';
 
-export default () =>
+export default (props) =>
   <Modal
     animationType='fade'
     supportedOrientations={['portrait', 'landscape']}
     transparent
-    onRequestClose={() => {}}
+    onRequestClose={props.onRequestClose}
   >
     <View style={styles.modalContainer}>
       <ActivityIndicator animating size='large' />

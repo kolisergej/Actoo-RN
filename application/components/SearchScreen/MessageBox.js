@@ -17,6 +17,7 @@ export default (props) => {
       transparent
       visible
       supportedOrientations={['portrait', 'landscape']}
+      onRequestClose={props.onRequestClose}
     >
       <View style={styles.modalContainer}>
         <View style={styles.messageBox}>
@@ -26,7 +27,7 @@ export default (props) => {
           <View style={styles.messageBoxHr} />
           <TouchableHighlight
             style={styles.messageBoxButton}
-            onPress={props.onButtonPressed}
+            onPress={translating ? props.onCancelTranslation : props.onRequestClose}
             underlayColor='#f2f2f2'
           >
             <Text style={styles.messageBoxButtonText}>

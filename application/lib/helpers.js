@@ -52,14 +52,13 @@ function getToken() {
 }
 const token = getToken();
 
-function translate(fromLng, toLng, word) {
-  const uri = `${constants.translateUrl}${token()}&lang=${fromLng}-${toLng}&text=${encodeURIComponent(word)}`;
-  return fetch(uri);
+function getTranslateUri(fromLng, toLng, word) {
+  return `${constants.translateUrl}${token()}&lang=${fromLng}-${toLng}&text=${encodeURIComponent(word)}`;
 }
 
 export {
   isLandscape,
   isTablet,
   convertLanguageDirections,
-  translate
+  getTranslateUri
 };

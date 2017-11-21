@@ -7,7 +7,7 @@ import {
 
 import db from '../../database';
 import { supportedLanguagesUrl, defaultLanguageDirections } from '../../lib/constants';
-import { convertLanguageDirections, translate } from '../../lib/helpers';
+import { convertLanguageDirections, getTranslateUri } from '../../lib/helpers';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 import Loader from './Loader';
 import MessageBox from './MessageBox';
@@ -42,6 +42,22 @@ export default class SearchScreen extends Component {
         reject(new Error('Slow connection'));
       }, 1000);
     });
+  }
+
+  onRequestClose = () => {
+    this.setState({
+      messageBox: {
+        show: false
+      }
+    });
+  }
+
+  onCancelTranslation = () => {
+    this.onRequestClose();
+    // some tiny logic
+    const request = this.request;
+    this.request = null;
+    request.abort();
   }
 
   componentDidMount() {
@@ -96,7 +112,7 @@ export default class SearchScreen extends Component {
     this.setState({ currentResult: plainWord });
   }
 
-  _onSubmitEditing = async () => {
+  _onSubmitEditing = () => {
     if (!this.state.textForTranslate) {
       this.setState({
         messageBox: {
@@ -121,14 +137,20 @@ export default class SearchScreen extends Component {
         },
         currentResult: null
       });
-      translate(fromLng, toLng, this.state.textForTranslate)
-        .then(response => response.json())
-        .then(json => {
+      const request = new XMLHttpRequest();
+      request.onreadystatechange = (e) => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        console.log(request);
+
+        if (request.status === 200) {
           this.setState({
             messageBox: {
               show: false
             }
           });
+          const json = JSON.parse(request.responseText);
           if (json.def.length) {
             const yandexResponse = json.def[0].tr[0];
             const examplesAnswer = yandexResponse.ex;
@@ -154,7 +176,7 @@ export default class SearchScreen extends Component {
               });
             });
             this.upWordRate(word);
-          } else {
+          } else if (this.request) {
             setTimeout(() => {
               this.setState({
                 messageBox: {
@@ -166,8 +188,7 @@ export default class SearchScreen extends Component {
               });
             }, 1000);
           }
-        })
-        .catch(er => {
+        } else if (this.request) {
           this.setState({
             messageBox: {
               show: true,
@@ -176,7 +197,11 @@ export default class SearchScreen extends Component {
               message: constants.checkInternetConnection
             }
           });
-        })
+        }
+      };
+      this.request = request;
+      this.request.open('GET', getTranslateUri(fromLng, toLng, this.state.textForTranslate));
+      this.request.send();
     }
   }
 
@@ -188,15 +213,14 @@ export default class SearchScreen extends Component {
         title={messageBoxState.title}
         message={messageBoxState.message}
         translating={messageBoxState.translating}
-        onButtonPressed={() => {
-          this.setState({ messageBox: { show: false } });
-        }}
+        onRequestClose={this.onRequestClose}
+        onCancelTranslation={this.onCancelTranslation}
       />;
     }
     return (<View style={styles.searchScreenContainer}>
       <View style={styles.searchScreenAlign} />
       <View style={styles.searchArea}>
-        { this.state.showLoader && <Loader /> }
+        { this.state.showLoader && <Loader onRequestClose={this.onRequestClose} /> }
         { messageBox }
         <TextInput
           style={styles.translateTextContainer}
