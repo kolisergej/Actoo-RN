@@ -53,6 +53,7 @@ export default class FlagsScreen extends Component {
           onBack(fromLng, item, direction);
         }
       }}
+      underlayColor="#f2f2f2"
     >
       <View>
         {

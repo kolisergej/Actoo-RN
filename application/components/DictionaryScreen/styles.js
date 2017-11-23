@@ -12,7 +12,8 @@ export default StyleSheet.create({
   },
   dictionaryInfo: {
     flex: 85,
-    marginHorizontal: '5%'
+    marginLeft: '5%',
+    marginRight: '1%'
   },
   dictionaryRow: {
     flexDirection: 'row',
@@ -20,18 +21,20 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 7,
-    paddingRight: 10
+    paddingRight: 5
   },
   flagsArea: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    flex: 30,
+    marginLeft: 5
   },
   flagImage: {
     width: PixelRatio.getPixelSizeForLayoutSize(20),
     height: PixelRatio.getPixelSizeForLayoutSize(12),
     borderColor: 'black',
-    borderWidth: 1
+    borderWidth: 1,
   },
   switchButton: {
     width: PixelRatio.getPixelSizeForLayoutSize(10),
@@ -49,6 +52,6 @@ export default StyleSheet.create({
   },
   dictionaryText: {
     fontSize: 16,
-    textAlign: 'center'
+    flex: 70
   }
 });

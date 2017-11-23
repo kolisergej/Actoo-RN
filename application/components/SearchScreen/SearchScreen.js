@@ -100,7 +100,7 @@ export default class SearchScreen extends Component {
   }
 
   _onChangeText = (text) => {
-    this.setState({ textForTranslate: text })
+    this.setState({ textForTranslate: text.toLowerCase() })
   }
 
   upWordRate = (word) => {

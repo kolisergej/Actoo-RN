@@ -42,9 +42,11 @@ class DictionaryScreen extends Component {
         {
           onPress: () => {
             const deleteItem = db.objects('Word').filtered('id = $0', item.id);
-            db.write(() => {
-              db.delete(deleteItem);
-            })
+            if (deleteItem) {
+              db.write(() => {
+                db.delete(deleteItem);
+              });
+            }
           },
           text: 'Delete',
           type: 'delete'
