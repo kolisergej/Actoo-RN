@@ -53,5 +53,11 @@ export default StyleSheet.create({
   dictionaryText: {
     fontSize: 16,
     flex: 70
+  },
+  deleteButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ff3232'
   }
 });

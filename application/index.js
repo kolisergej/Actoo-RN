@@ -12,9 +12,9 @@ SearchScreen.navigationOptions = {
   tabBarLabel: 'Search',
   tabBarIcon: ({ tintColor }) => {
     return <Feather
-      name={'search'}
+      name='search'
       size={25}
-      style={{'color': tintColor, paddingRight: 0}}
+      style={{'color': tintColor}}
     />;
   }
 };
@@ -23,9 +23,9 @@ TrainingScreen.navigationOptions = {
   tabBarLabel: 'Training',
   tabBarIcon: ({ tintColor }) => {
     return <Feather
-      name={'repeat'}
+      name='repeat'
       size={25}
-      style={{'color': tintColor, paddingRight: 0}}
+      style={{'color': tintColor}}
     />;
   }
 };
@@ -34,9 +34,9 @@ DictionaryScreen.navigationOptions = {
   tabBarLabel: 'Dictionary',
   tabBarIcon: ({ tintColor }) => {
     return <MaterialCommunityIcons
-      name={'book-open-page-variant'}
+      name='book-open-page-variant'
       size={25}
-      style={{'color': tintColor, paddingRight: 0}}
+      style={{'color': tintColor}}
     />;
   }
 }

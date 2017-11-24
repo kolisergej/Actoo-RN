@@ -13,6 +13,8 @@ import db from '../../database';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 import EmptyDictionary from '../../lib/EmptyDictionary';
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 
 class DictionaryScreen extends Component {
   constructor() {
@@ -34,10 +36,16 @@ class DictionaryScreen extends Component {
     return item.id;
   }
 
-  renderItem = ({ item }) => {
+  renderItem = ({ index, item }) => {
     const swipeSettings = {
       autoClose: true,
       backgroundColor: 'transparent',
+      close: this.state.openIndex !== index,
+      onOpen: () => {
+        setTimeout(() => {
+          this.setState({ openIndex: index });
+        }, 500);
+      },
       right: [
         {
           onPress: () => {
@@ -48,8 +56,10 @@ class DictionaryScreen extends Component {
               });
             }
           },
-          text: 'Delete',
-          type: 'delete'
+          component: <View style={styles.deleteButton}>
+            <MaterialIcons name='delete' size={30} />
+          </View>,
+          underlayColor: '#ff4d4d'
         }
       ]
     };
