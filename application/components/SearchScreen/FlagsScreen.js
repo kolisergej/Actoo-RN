@@ -31,10 +31,19 @@ export default class FlagsScreen extends Component {
     this.state = {
       numColumns
     };
-    Dimensions.addEventListener('change', () => {
-      const numColumns = getNumColumns();
-      this.setState({ numColumns });
-    });
+  }
+
+  onDimensionChanged = () => {
+    const numColumns = getNumColumns();
+    this.setState({ numColumns });
+  }
+
+  componentWillMount() {
+    Dimensions.addEventListener('change', this.onDimensionChanged);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.onDimensionChanged);
   }
 
   keyExtractor = (item) => {
