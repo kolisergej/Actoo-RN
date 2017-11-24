@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flex: 4
   },
   trainingMainArea: {
-    flex: 87,
+    flex: 40,
     width: '80%',
     marginHorizontal: '10%'
   },
@@ -29,13 +29,24 @@ export default StyleSheet.create({
     width: PixelRatio.getPixelSizeForLayoutSize(60),
     height: PixelRatio.getPixelSizeForLayoutSize(20),
     borderWidth: 1,
-    borderRadius: 10,
-    justifyContent: 'center',
+    borderRadius: 10
+  },
+  buttonView: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
     alignItems: 'center'
+  },
+  buttonIcon: {
+    flex: 5,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   buttonText: {
     fontSize: 16,
-    color: '#0E7AFE'
+    color: '#0E7AFE',
+    flex: 6,
+    textAlign: 'left'
   },
   origWord: {
     textAlign: 'center',

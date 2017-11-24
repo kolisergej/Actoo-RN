@@ -7,6 +7,8 @@ import {
   View
 } from 'react-native';
 
+import Button from './Button';
+
 import styles from './styles';
 import db from '../../database';
 import ResultBox from '../../lib/ResultBox';
@@ -107,29 +109,11 @@ export default class TrainingScreen extends Component {
 
           { !this.state.showResult ?
             <View style={styles.buttonsArea}>
-              <TouchableHighlight
-                style={styles.buttonStyle}
-                onPress={this.onKnowPressed}
-                underlayColor="#f2f2f2"
-              >
-                <Text style={styles.buttonText}>I know</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={styles.buttonStyle}
-                onPress={this.onForgotPressed}
-                underlayColor="#f2f2f2"
-              >
-                <Text style={styles.buttonText}>I forgot</Text>
-              </TouchableHighlight>
+              <Button onPressed={this.onKnowPressed} text='I know' icon='like' />
+              <Button onPressed={this.onForgotPressed} text='I forgot' icon='dislike' />
             </View> :
             <View style={styles.buttonsArea}>
-              <TouchableHighlight
-                  style={styles.buttonStyle}
-                  onPress={this.onGotItPressed}
-                  underlayColor="#f2f2f2"
-                >
-                <Text style={styles.buttonText}>Got it</Text>
-              </TouchableHighlight>
+              <Button onPressed={this.onGotItPressed} text='Got It' icon='check' />
             </View>
           }
         </View>
