@@ -28,9 +28,7 @@ export default class FlagsScreen extends Component {
   constructor() {
     super();
     const numColumns = getNumColumns();
-    this.state = {
-      numColumns
-    };
+    this.state = { numColumns };
   }
 
   onDimensionChanged = () => {
