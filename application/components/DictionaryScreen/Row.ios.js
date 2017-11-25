@@ -11,7 +11,7 @@ import db from '../../database';
 import styles from './styles';
 
 
-export default ({ item, index, openIndex, onRowOpen, children }) => {
+export default ({ id, index, openIndex, onRowOpen, children }) => {
   const swipeSettings = {
     autoClose: true,
     backgroundColor: 'transparent',
@@ -22,7 +22,7 @@ export default ({ item, index, openIndex, onRowOpen, children }) => {
     right: [
       {
         onPress: () => {
-          const deleteItem = db.objects('Word').filtered('id = $0', item.id);
+          const deleteItem = db.objects('Word').filtered('id = $0', id);
           if (deleteItem) {
             db.write(() => {
               db.delete(deleteItem);

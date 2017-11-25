@@ -59,5 +59,15 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ff3232'
-  }
+  },
+  androidPopup: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  androidPopupRow: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
 });

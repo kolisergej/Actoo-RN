@@ -142,7 +142,6 @@ export default class SearchScreen extends Component {
         if (request.readyState !== 4) {
           return;
         }
-        console.log(request);
 
         if (request.status === 200) {
           this.setState({

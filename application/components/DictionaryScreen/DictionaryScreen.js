@@ -52,7 +52,7 @@ class DictionaryScreen extends Component {
       }
     </View>;
 
-    return <Row index={index} item={item} onRowOpen={this.onRowOpen} openIndex={this.state.openIndex}>
+    return <Row index={index} id={item.id} onRowOpen={this.onRowOpen} openIndex={this.state.openIndex}>
       { info }
     </Row>;
   }

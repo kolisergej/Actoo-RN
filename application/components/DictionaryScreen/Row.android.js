@@ -14,12 +14,15 @@ import styles from './styles';
 
 
 export default class Row extends Component {
+
   onPopupEvent = (eventName, index) => {
     if (eventName === 'itemSelected' && index === 0) {
-      const deleteItem = db.objects('Word').filtered('id = $0', this.props.item.id);
+      const deleteItem = db.objects('Word').filtered('id = $0', this.props.id);
       if (deleteItem) {
         db.write(() => {
           db.delete(deleteItem);
+          // I think, it is hack for updating list
+          this.props.onRowOpen();
         });
       }
     }
@@ -35,11 +38,11 @@ export default class Row extends Component {
   }
 
   render() {
-    return <View style={{flex: 1, flexDirection: 'row'}}>
+    return <View style={styles.androidPopup}>
       <View style={{flex: 14}}>
         { this.props.children }
       </View>
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.androidPopupRow}>
         <TouchableOpacity onPress={this.onPress}>
           <MaterialIcons
             name='more-vert'
