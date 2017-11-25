@@ -6,14 +6,13 @@ import {
   Text,
   View
 } from 'react-native';
-import Swipeout from 'react-native-swipeout';
 
-import styles from './styles';
+import Row from './Row';
 import db from '../../database';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 import EmptyDictionary from '../../lib/EmptyDictionary';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import styles from './styles';
 
 
 class DictionaryScreen extends Component {
@@ -32,54 +31,30 @@ class DictionaryScreen extends Component {
     });
   }
 
-  keyExtractor = (item) => {
-    return item.id;
-  }
+  keyExtractor = item => item.id;
+
+  onRowOpen = index => this.setState({ openIndex: index })
 
   renderItem = ({ index, item }) => {
-    const swipeSettings = {
-      autoClose: true,
-      backgroundColor: 'transparent',
-      close: this.state.openIndex !== index,
-      onOpen: () => {
-        setTimeout(() => {
-          this.setState({ openIndex: index });
-        }, 500);
-      },
-      right: [
-        {
-          onPress: () => {
-            const deleteItem = db.objects('Word').filtered('id = $0', item.id);
-            if (deleteItem) {
-              db.write(() => {
-                db.delete(deleteItem);
-              });
-            }
-          },
-          component: <View style={styles.deleteButton}>
-            <MaterialIcons name='delete' size={30} />
-          </View>,
-          underlayColor: '#ff4d4d'
-        }
-      ]
-    };
-    return <Swipeout {...swipeSettings}>
-      <View style={styles.dictionaryRow}>
-        <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
-        { Platform.OS === 'ios' ?
-          <View style={styles.flagsArea}>
-            <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
-            <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-            <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
-          </View> :
-          <View style={styles.flagsArea}>
-            <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
-            <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-            <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
-          </View>
-        }
-      </View>
-    </Swipeout>
+    const info = <View style={styles.dictionaryRow}>
+      <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
+      { Platform.OS === 'ios' ?
+        <View style={styles.flagsArea}>
+          <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
+          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+          <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
+        </View> :
+        <View style={styles.flagsArea}>
+          <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
+          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
+          <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
+        </View>
+      }
+    </View>;
+
+    return <Row index={index} item={item} onRowOpen={this.onRowOpen} openIndex={this.state.openIndex}>
+      { info }
+    </Row>;
   }
 
   render() {

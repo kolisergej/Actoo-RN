@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flex: 4
   },
   trainingMainArea: {
-    flex: 40,
+    flex: 60,
     width: '80%',
     marginHorizontal: '10%'
   },
@@ -20,14 +20,15 @@ export default StyleSheet.create({
     flex: 90
   },
   buttonsArea: {
-    flex: 10,
+    flex: 15,
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-around'
   },
   buttonStyle: {
     borderColor: 'grey',
-    width: PixelRatio.getPixelSizeForLayoutSize(60),
-    height: PixelRatio.getPixelSizeForLayoutSize(20),
+    width: PixelRatio.getPixelSizeForLayoutSize(67),
+    height: PixelRatio.getPixelSizeForLayoutSize(27),
     borderWidth: 1,
     borderRadius: 10
   },
