@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  Platform,
   Dimensions
 } from 'react-native';
 import { TabNavigator } from 'react-navigation';
@@ -65,21 +66,28 @@ const App = TabNavigator({
 export default class Application extends Component {
   constructor() {
     super();
-    const { width, height } = Dimensions.get('window');
-    this.state = {
-      banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape'
-    };
+
+    if (Platform.OS === 'android') {
+      this.state = {
+        banner: 'smartBanner'
+      };
+    } else {
+      const { width, height } = Dimensions.get('window');
+      this.state = {
+        banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape'
+      };
+    }
   }
 
   onDimensionChanged = () => {
     const { width, height } = Dimensions.get('window');
-    this.setState({
-      banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape'
-    });
+    this.setState({ banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape' });
   }
 
   componentDidMount() {
-    Dimensions.addEventListener('change', this.onDimensionChanged);
+    if (Platform.OS === 'ios') {
+      Dimensions.addEventListener('change', this.onDimensionChanged);
+    }
   }
 
   render() {
