@@ -37,7 +37,7 @@ TrainingScreen.navigationOptions = {
 };
 
 DictionaryScreen.navigationOptions = {
-  tabBarLabel: 'Dictionary',
+  tabBarLabel: 'Glossary',
   tabBarIcon: ({ tintColor }) => {
     return <MaterialCommunityIcons
       name='book-open-page-variant'

@@ -107,10 +107,7 @@ SearchScreen.navigationOptions = ({ navigation }) => {
       </TouchableHighlight>
     </View>;
 
-    return {
-      title: 'Search',
-      headerRight: headerRight
-    }
+    return { headerRight };
   }
 }
 

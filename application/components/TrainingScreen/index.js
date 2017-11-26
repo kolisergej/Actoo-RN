@@ -1,12 +1,4 @@
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import TrainingScreen from './TrainingScreen';
 
-import TrainingScreenNav from './TrainingScreenNav';
-
-
-export default StackNavigator({
-  Training: {
-    screen: TrainingScreenNav
-  }
-});
+export default TrainingScreen;
 

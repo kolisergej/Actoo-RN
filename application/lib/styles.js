@@ -36,7 +36,7 @@ export default StyleSheet.create({
     borderColor: '#cccccc',
   },
   resultText: {
-    fontSize: 16
+    fontSize: 14
   },
   emptyDictionary: {
     flex: 1,

@@ -46,7 +46,8 @@ export default StyleSheet.create({
     marginHorizontal: PixelRatio.getPixelSizeForLayoutSize(13)
   },
   flatListColumn: {
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: 25
   },
   languageSign: {
     textAlign: 'center'

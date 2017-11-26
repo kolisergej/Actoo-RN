@@ -1,10 +1,3 @@
-import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import DictionaryScreen from './DictionaryScreen';
 
-import DictionaryScreenNav from './DictionaryScreenNav';
-
-export default StackNavigator({
-  Dictionary: {
-    screen: DictionaryScreenNav
-  }
-});
+export default DictionaryScreen;
