@@ -17,9 +17,7 @@ export default (props) =>
     underlayColor="#f2f2f2"
   >
     <View style={styles.buttonView}>
-      <View style={styles.buttonIcon}>
-        <SimpleLineIcons name={props.icon} size={30} />
-      </View>
+      <SimpleLineIcons name={props.icon} size={30} />
       <Text style={styles.buttonText}>{props.text}</Text>
     </View>
   </TouchableHighlight>
