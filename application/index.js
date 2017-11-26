@@ -64,41 +64,17 @@ const App = TabNavigator({
 });
 
 export default class Application extends Component {
-  constructor() {
-    super();
-
-    if (Platform.OS === 'android') {
-      this.state = {
-        banner: 'smartBanner'
-      };
-    } else {
-      const { width, height } = Dimensions.get('window');
-      this.state = {
-        banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape'
-      };
-    }
-  }
-
-  onDimensionChanged = () => {
-    const { width, height } = Dimensions.get('window');
-    this.setState({ banner: height > width ? 'smartBannerPortrait' : 'smartBannerLandscape' });
-  }
-
-  componentDidMount() {
-    if (Platform.OS === 'ios') {
-      Dimensions.addEventListener('change', this.onDimensionChanged);
-    }
-  }
-
   render() {
     return <View style={{flex: 1}}>
       <App />
-      <AdMobBanner
-        adSize={this.state.banner}
-        adUnitID='ca-app-pub-1452163748623078/4582540864'
-        testDevices={[AdMobBanner.simulatorId]}
-        onAdFailedToLoad={error => console.error(error)}
-      />
+      <View style={{flexDirection: 'row', justifyContent: 'center', backgroundColor: '#e6e6e6'}}>
+        <AdMobBanner
+          adSize='banner'
+          adUnitID='ca-app-pub-1452163748623078/4582540864'
+          testDevices={[AdMobBanner.simulatorId]}
+          onAdFailedToLoad={error => {}}
+        />
+      </View>
     </View>
   }
 }
