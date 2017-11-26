@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   buttonStyle: {
     borderColor: 'grey',
-    width: PixelRatio.getPixelSizeForLayoutSize(67),
+    width: PixelRatio.getPixelSizeForLayoutSize(60),
     height: PixelRatio.getPixelSizeForLayoutSize(27),
     borderWidth: 1,
     borderRadius: 10
@@ -39,14 +39,16 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   buttonIcon: {
-    flex: 5,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    marginHorizontal: 10,
+    // borderColor: 'black',
+    // borderWidth: 1,
   },
   buttonText: {
     fontSize: 16,
     color: '#0E7AFE',
     flex: 6,
+    // borderColor: 'black',
+    // borderWidth: 1,
     textAlign: 'left'
   },
   origWord: {
