@@ -81,6 +81,8 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 10,
+    paddingHorizontal: 10,
+    textAlign: 'center'
   },
   messageBoxBodyText: {
     fontSize: 15,
