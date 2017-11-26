@@ -225,7 +225,7 @@ export default class SearchScreen extends Component {
           style={styles.translateTextContainer}
           placeholder='Type to translate...'
           maxLength={30}
-          autoFocus
+          autoFocus={false}
           autoCapitalize='none'
           returnKeyLabel='google'
           onChangeText={this._onChangeText}
