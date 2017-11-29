@@ -57,13 +57,14 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-        <View>
         {
           Platform.OS === 'ios' ?
-            <Image resizeMode='stretch' source={{uri: fromLng}} style={styles.flagIcon} /> :
-            <Image resizeMode='stretch' source={{uri: `asset:/${fromLng}.png`}} style={styles.flagIcon} />
+            // <Image resizeMode='stretch' source={{uri: fromLng}} style={styles.flagIcon} /> :
+            // <Image resizeMode='stretch' source={{uri: `asset:/${fromLng}.png`}} style={styles.flagIcon} />
+            // <Image source={require('../../../assets/switch.png')} style={styles.switchButton} />
+            <Image source={{uri: `flags/small/${fromLng}`}} /> :
+            <Image source={{uri: `asset:/flags/small/${fromLng}.png`}} />
         }
-        </View>
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
@@ -76,7 +77,13 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-        <Image source={require('../../../assets/switch.png')} style={styles.switchButton} />
+      {
+        Platform.OS === 'ios' ?
+          // <Image source={require('icons/exchange')} /> :
+          // <Image source={require('asset:/icons/exchange.png')} />
+          <View /> :
+          <View />
+      }
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
@@ -97,13 +104,13 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-        <View>
-          {
-            Platform.OS === 'ios' ?
-              <Image resizeMode='stretch' source={{uri: toLng}} style={styles.flagIcon} /> :
-              <Image resizeMode='stretch' source={{uri: `asset:/${toLng}.png`}} style={styles.flagIcon} />
-          }
-        </View>
+        {
+          Platform.OS === 'ios' ?
+            // <Image resizeMode='stretch' source={{uri: toLng}} style={styles.flagIcon} /> :
+            // <Image resizeMode='stretch' source={{uri: `asset:/${toLng}.png`}} style={styles.flagIcon} />
+            <Image source={{uri: `flags/small/${toLng}`}} /> :
+            <Image source={{uri: `asset:/flags/small/${toLng}.png`}} />
+        }
       </TouchableHighlight>
     </View>;
 
