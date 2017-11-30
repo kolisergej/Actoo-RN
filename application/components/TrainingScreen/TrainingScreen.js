@@ -94,14 +94,10 @@ export default class TrainingScreen extends Component {
             {
               Platform.OS === 'ios' ?
                 <View style={styles.flagsArea}>
-                  <Image resizeMode='stretch' source={{uri: currentWord.fromLng}} style={styles.flagImage} />
-                  <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-                  <Image resizeMode='stretch' source={{uri: currentWord.toLng}} style={styles.flagImage} />
+
                 </View> :
                 <View style={styles.flagsArea}>
-                  <Image resizeMode='stretch' source={{uri: `asset:/${currentWord.fromLng}.png`}} style={styles.flagImage} />
-                  <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-                  <Image resizeMode='stretch' source={{uri: `asset:/${currentWord.toLng}.png`}} style={styles.flagImage} />
+
                 </View>
             }
             { this.state.showResult && <ResultBox result={currentWord} /> }

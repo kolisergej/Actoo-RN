@@ -65,8 +65,8 @@ export default class FlagsScreen extends Component {
       <View>
         {
           Platform.OS === 'ios' ?
-            <Image resizeMode='stretch' source={{uri: item}} style={styles.flagImage} /> :
-            <Image resizeMode='stretch' source={{uri: `asset:/${item}.png`}} style={styles.flagImage} />
+            <Image source={{uri: `flags/big/${item}`}} style={styles.flagImage} /> :
+            <Image source={{uri: `asset:/flags/big/${item}.png`}} style={styles.flagImage} />
         }
         <Text style={styles.languageSign}>{item}</Text>
       </View>

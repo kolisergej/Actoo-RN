@@ -40,14 +40,10 @@ class DictionaryScreen extends Component {
       <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
       { Platform.OS === 'ios' ?
         <View style={styles.flagsArea}>
-          <Image resizeMode='stretch' source={{uri: item.fromLng}} style={styles.flagImage} />
-          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-          <Image resizeMode='stretch' source={{uri: item.toLng}} style={styles.flagImage} />
+
         </View> :
         <View style={styles.flagsArea}>
-          <Image resizeMode='stretch' source={{uri: `asset:/${item.fromLng}.png`}} style={styles.flagImage} />
-          <Image source={require('../../../assets/arrow.png')} style={styles.switchButton} />
-          <Image resizeMode='stretch' source={{uri: `asset:/${item.toLng}.png`}} style={styles.flagImage} />
+
         </View>
       }
     </View>;
