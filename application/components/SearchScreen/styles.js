@@ -1,4 +1,4 @@
-import { StyleSheet, PixelRatio } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   headerRight: {
@@ -29,6 +29,8 @@ export default StyleSheet.create({
     flex: 90
   },
   translateTextContainer: {
+    paddingLeft: 35,
+    paddingRight: 35,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
@@ -100,4 +102,13 @@ export default StyleSheet.create({
     fontSize: 19,
     color: '#0E7AFE',
   },
+  textInputContainer: {
+    position: 'relative'
+  },
+  clearInputButton: {
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 4,
+    height: '100%'
+  }
 });

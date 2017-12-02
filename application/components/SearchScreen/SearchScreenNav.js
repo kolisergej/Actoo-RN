@@ -8,7 +8,6 @@ import flagImages from '../../lib/flagImages';
 import styles from './styles';
 
 const exchange = require('../../../images/icons/exchange.png');
-console.log('flagImages', flagImages.big['be']);
 
 
 SearchScreen.navigationOptions = ({ navigation }) => {

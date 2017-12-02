@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {
   Text,
   TextInput,
+  TouchableHighlight,
   View
 } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 
 import db from '../../database';
 import { supportedLanguagesUrl, defaultLanguageDirections } from '../../lib/constants';
@@ -99,8 +101,13 @@ export default class SearchScreen extends Component {
     });
   }
 
-  _onChangeText = (text) => {
+  onChangeText = (text) => {
     this.setState({ textForTranslate: text.toLowerCase() })
+  }
+
+  onClearText = () => {
+    this.setState({ textForTranslate: '' });
+    this.refs.textInput.focus();
   }
 
   upWordRate = (word) => {
@@ -221,18 +228,31 @@ export default class SearchScreen extends Component {
       <View style={styles.searchArea}>
         { this.state.showLoader && <Loader onRequestClose={this.onRequestClose} /> }
         { messageBox }
-        <TextInput
-          style={styles.translateTextContainer}
-          placeholder='Type to translate...'
-          maxLength={30}
-          autoFocus={false}
-          autoCapitalize='none'
-          returnKeyLabel='google'
-          onChangeText={this._onChangeText}
-          value={this.state.textForTranslate}
-          onSubmitEditing={this._onSubmitEditing}
-          underlineColorAndroid='transparent'
-        />
+        <View style={styles.textInputContainer}>
+          <TextInput
+            style={styles.translateTextContainer}
+            placeholder='Type to translate...'
+            maxLength={30}
+            autoFocus={false}
+            autoCapitalize='none'
+            returnKeyLabel='search'
+            onChangeText={this.onChangeText}
+            value={this.state.textForTranslate}
+            onSubmitEditing={this._onSubmitEditing}
+            underlineColorAndroid='transparent'
+            ref='textInput'
+          />
+          { this.state.textForTranslate ?
+            <TouchableHighlight
+              onPress={this.onClearText}
+              underlayColor='transparent'
+              style={styles.clearInputButton}
+            >
+              <Feather name='delete' size={25} />
+            </TouchableHighlight> :
+            null
+          }
+        </View>
         { this.state.currentResult && <ResultBox result={this.state.currentResult} /> }
       </View>
       <YandexNoticeComponent />
