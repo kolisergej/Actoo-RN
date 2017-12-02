@@ -64,17 +64,51 @@ const App = TabNavigator({
 });
 
 export default class Application extends Component {
+  constructor() {
+    super();
+    const { width, height } = Dimensions.get('window');
+    this.state = {
+      banner: (width < height) ? 'p' : 'l'
+    }
+  }
+
+  onDimensionChanged = () => {
+    const { width, height } = Dimensions.get('window');
+    this.setState({ banner: null });
+    setImmediate(() => {
+      this.setState({ banner: (width < height) ? 'p' : 'l' });
+    });
+  }
+
+  componentWillMount() {
+    Dimensions.addEventListener('change', this.onDimensionChanged);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.onDimensionChanged);
+  }
+
   render() {
+    let banner = null;
+    if (this.state.banner === 'p') {
+      banner = <AdMobBanner
+        adSize={Platform.OS === 'ios' ? 'smartBannerPortrait' : 'smartBanner'}
+        adUnitID='ca-app-pub-1452163748623078/4582540864'
+        testDevices={[AdMobBanner.simulatorId]}
+        onAdFailedToLoad={error => {console.warn('error port', error);}}
+      />;
+    } else if (this.state.banner === 'l') {
+      banner = <AdMobBanner
+        adSize={Platform.OS === 'ios' ? 'smartBannerLandscape' : 'smartBanner'}
+        adUnitID='ca-app-pub-1452163748623078/4582540864'
+        testDevices={[AdMobBanner.simulatorId]}
+        onAdFailedToLoad={error => {console.warn('error land', error);}}
+      />;
+    }
+
     return <View style={{flex: 1}}>
       <App />
-      <View style={{flexDirection: 'row', justifyContent: 'center', backgroundColor: '#E9E9EF'}}>
-        <AdMobBanner
-          adSize='banner'
-          adUnitID='ca-app-pub-1452163748623078/4582540864'
-          testDevices={[AdMobBanner.simulatorId]}
-          onAdFailedToLoad={error => {}}
-        />
-      </View>
+      { banner }
     </View>
   }
 }
