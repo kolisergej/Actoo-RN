@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
   Image,
   FlatList,
   Text,
@@ -11,8 +10,11 @@ import Row from './Row';
 import db from '../../database';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
 import EmptyDictionary from '../../lib/EmptyDictionary';
+import flagImages from '../../lib/flagImages';
 
 import styles from './styles';
+
+const forwardArrow = require('../../../images/icons/arrow.png');
 
 
 class DictionaryScreen extends Component {
@@ -38,14 +40,12 @@ class DictionaryScreen extends Component {
   renderItem = ({ index, item }) => {
     const info = <View style={styles.dictionaryRow}>
       <Text style={styles.dictionaryText}>{ item.origWord } - { item.translate }</Text>
-      { Platform.OS === 'ios' ?
-        <View style={styles.flagsArea}>
 
-        </View> :
-        <View style={styles.flagsArea}>
-
-        </View>
-      }
+      <View style={styles.flagsArea}>
+        <Image source={flagImages.small[item.fromLng]} style={styles.flagImage} />
+        <Image source={forwardArrow} style={styles.switchButton} />
+        <Image source={flagImages.small[item.toLng]} style={styles.flagImage} />
+      </View>
     </View>;
 
     return <Row index={index} id={item.id} onRowOpen={this.onRowOpen} openIndex={this.state.openIndex}>

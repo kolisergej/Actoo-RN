@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { FlatList,
+import {
+  FlatList,
   TouchableHighlight,
   Image,
   Text,
   View,
-  Platform,
   Dimensions
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import { isTablet, isLandscape } from '../../lib/helpers';
+import flagImages from '../../lib/flagImages';
 import styles from './styles';
 
 
@@ -63,11 +64,7 @@ export default class FlagsScreen extends Component {
       underlayColor="#f2f2f2"
     >
       <View>
-        {
-          Platform.OS === 'ios' ?
-            <Image source={{uri: `flags/big/${item}`}} style={styles.flagImage} /> :
-            <Image source={{uri: `asset:/flags/big/${item}.png`}} style={styles.flagImage} />
-        }
+        <Image source={flagImages.big[item]} style={styles.flagImage} resizeMethod='resize' />
         <Text style={styles.languageSign}>{item}</Text>
       </View>
     </TouchableHighlight>;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  TouchableHighlight,
   Text,
   Image,
-  Platform,
   View
 } from 'react-native';
 
@@ -14,8 +12,10 @@ import db from '../../database';
 import ResultBox from '../../lib/ResultBox';
 import EmptyDictionary from '../../lib/EmptyDictionary';
 import YandexNoticeComponent from '../../lib/YandexNoticeComponent';
+import flagImages from '../../lib/flagImages';
 
 const wordsSessionCount = 20;
+const forwardArrow = require('../../../images/icons/arrow.png');
 
 export default class TrainingScreen extends Component {
   constructor() {
@@ -91,15 +91,13 @@ export default class TrainingScreen extends Component {
         <View style={styles.trainingMainArea}>
           <View style={styles.infoArea}>
             <Text style={styles.origWord}>{currentWord.origWord}</Text>
-            {
-              Platform.OS === 'ios' ?
-                <View style={styles.flagsArea}>
 
-                </View> :
-                <View style={styles.flagsArea}>
+            <View style={styles.flagsArea}>
+              <Image source={flagImages.small[currentWord.fromLng]} style={styles.flagImage} />
+              <Image source={forwardArrow} style={styles.switchButton} />
+              <Image source={flagImages.small[currentWord.toLng]} style={styles.flagImage} />
+            </View>
 
-                </View>
-            }
             { this.state.showResult && <ResultBox result={currentWord} /> }
           </View>
 

@@ -1,9 +1,14 @@
 import React from 'react';
-import { TouchableHighlight, Image, View, Platform } from 'react-native';
+import { TouchableHighlight, Image, View } from 'react-native';
 
 import SearchScreen from './SearchScreen';
 import db from '../../database';
+
+import flagImages from '../../lib/flagImages';
 import styles from './styles';
+
+const exchange = require('../../../images/icons/exchange.png');
+console.log('flagImages', flagImages.big['be']);
 
 
 SearchScreen.navigationOptions = ({ navigation }) => {
@@ -57,12 +62,7 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-        {
-          // Platform.OS === 'ios' ?
-            // <Image source={{uri: `flags/small/${fromLng}`}} style={styles.flagIcon} /> :
-            // <Image source={{uri: `asset:/flags/small/${fromLng}.png`}} style={styles.flagIcon} />
-            <Image source={require('../../../images/flags/small/en.png')} style={styles.flagIcon} />
-        }
+        <Image source={flagImages.small[fromLng]} style={styles.flagIcon} />
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
@@ -75,12 +75,7 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-      {
-        // Platform.OS === 'ios' ?
-        //   <Image source={{uri: 'icons/exchange.png'}} style={styles.switchButton} /> :
-        //   <Image source={{uri: 'asset:/icons/exchange.png'}} style={styles.switchButton} />
-        <Image source={require('../../../images/icons/exchange.png')} style={styles.switchButton} />
-      }
+        <Image source={exchange} style={styles.switchButton} />
       </TouchableHighlight>
       <TouchableHighlight
         onPress={() => {
@@ -101,12 +96,7 @@ SearchScreen.navigationOptions = ({ navigation }) => {
         }}
         underlayColor="#f2f2f2"
       >
-        {
-          // Platform.OS === 'ios' ?
-          //   <Image source={{uri: `flags/small/${toLng}`}} style={styles.flagIcon} /> :
-          //   <Image source={{uri: `asset:/flags/small/${toLng}.png`}} style={styles.flagIcon} />
-            <Image source={require('../../../images/flags/small/ru.png')} style={styles.flagIcon} />
-        }
+        <Image source={flagImages.small[toLng]} style={styles.flagIcon} />
       </TouchableHighlight>
     </View>;
 

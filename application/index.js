@@ -67,7 +67,7 @@ export default class Application extends Component {
   render() {
     return <View style={{flex: 1}}>
       <App />
-      <View style={{flexDirection: 'row', justifyContent: 'center', backgroundColor: '#e6e6e6'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center', backgroundColor: '#E9E9EF'}}>
         <AdMobBanner
           adSize='banner'
           adUnitID='ca-app-pub-1452163748623078/4582540864'

@@ -38,20 +38,21 @@ export default class Row extends Component {
   }
 
   render() {
-    return <View style={styles.androidPopup}>
-      <View style={{flex: 14}}>
+    return <View style={styles.androidRow}>
+      <View style={styles.androidRowChildren}>
         { this.props.children }
       </View>
-      <View style={styles.androidPopupRow}>
-        <TouchableOpacity onPress={this.onPress}>
-          <MaterialIcons
-            name='more-vert'
-            size={30}
-            color='grey'
-            ref={icon => this.icon = icon}
-          />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity
+        onPress={this.onPress}
+        style={styles.androidPopup}
+      >
+        <MaterialIcons
+          name='more-vert'
+          size={30}
+          color='grey'
+          ref={icon => this.icon = icon}
+        />
+      </TouchableOpacity>
     </View>;
   }
 }

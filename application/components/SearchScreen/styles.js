@@ -1,6 +1,5 @@
 import { StyleSheet, PixelRatio } from 'react-native';
 
-
 export default StyleSheet.create({
   headerRight: {
     flex: 1,
@@ -9,20 +8,14 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   flagIcon: {
-    // width: PixelRatio.getPixelSizeForLayoutSize(20),
-    // height: PixelRatio.getPixelSizeForLayoutSize(15),
     borderColor: 'black',
     borderWidth: 1,
   },
   switchButton: {
     tintColor: '#0E7AFE',
-    // width: PixelRatio.getPixelSizeForLayoutSize(15),
-    // height: PixelRatio.getPixelSizeForLayoutSize(15),
     marginHorizontal: 5
   },
   flagImage: {
-    // width: PixelRatio.getPixelSizeForLayoutSize(30),
-    // height: PixelRatio.getPixelSizeForLayoutSize(20),
     borderColor: 'black',
     borderWidth: 1
   },
@@ -43,7 +36,7 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   flatListContent: {
-    marginHorizontal: PixelRatio.getPixelSizeForLayoutSize(13)
+    marginHorizontal: '5%'
   },
   flatListColumn: {
     justifyContent: 'space-between',

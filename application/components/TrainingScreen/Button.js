@@ -12,7 +12,6 @@ import styles from './styles';
 
 export default (props) =>
   <TouchableHighlight
-    style={styles.buttonStyle}
     onPress={props.onPressed}
     underlayColor="#f2f2f2"
   >

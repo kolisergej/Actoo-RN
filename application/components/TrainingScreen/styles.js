@@ -1,12 +1,9 @@
-import {
-  PixelRatio,
-  StyleSheet
-} from 'react-native';
-
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   trainingContainer: {
     flex: 1,
+    backgroundColor: '#E9E9EF'
   },
   trainingScreenAlign: {
     flex: 4
@@ -17,26 +14,22 @@ export default StyleSheet.create({
     marginHorizontal: '10%'
   },
   infoArea: {
-    flex: 90
+    flex: 87
   },
   buttonsArea: {
-    flex: 15,
+    flex: 13,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around'
   },
-  buttonStyle: {
-    paddingHorizontal: 5,
-    borderColor: 'grey',
-    height: PixelRatio.getPixelSizeForLayoutSize(27),
-    borderWidth: 1,
-    borderRadius: 10
-  },
   buttonView: {
     flex: 1,
-    width: '100%',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderRadius: 10
   },
   buttonText: {
     fontSize: 16,
@@ -55,14 +48,11 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   flagImage: {
-    width: PixelRatio.getPixelSizeForLayoutSize(25),
-    height: PixelRatio.getPixelSizeForLayoutSize(15),
     borderColor: 'black',
     borderWidth: 1
   },
   switchButton: {
-    width: PixelRatio.getPixelSizeForLayoutSize(12),
-    height: PixelRatio.getPixelSizeForLayoutSize(12),
+    tintColor: '#0E7AFE',
     marginHorizontal: 5
   },
 });
